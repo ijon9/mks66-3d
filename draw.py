@@ -15,27 +15,33 @@ def add_box( points, x, y, z, width, height, depth ):
     btr = (x+width, y, z+depth)
     bbr = (x+width, y-height, z+depth)
     bbl = (x, y-height, z+depth)
+
     #Front top left --> Front top right
-    add_edge(matrix, ftl[0], ftl[1], ftl[2], ftr[0], ftr[1], ftr[2])
+    add_edge(points, ftl[0], ftl[1], ftl[2], ftr[0], ftr[1], ftr[2])
     #Front top right --> Front bottom right
-    add_edge(matrix, ftr[0], ftr[1], ftr[2], fbr[0], fbr[1], fbr[2])
+    add_edge(points, ftr[0], ftr[1], ftr[2], fbr[0], fbr[1], fbr[2])
     #Front bottom right --> Front bottom left
-    add_edge(matrix, fbr[0], fbr[1], fbr[2], fbl[0], fbl[1], fbl[2])
+    add_edge(points, fbr[0], fbr[1], fbr[2], fbl[0], fbl[1], fbl[2])
     #Front botton left --> Front top left
-    add_edge(matrix, fbl[0], fbl[1], fbl[2], ftl[0], ftl[1], ftl[2])
+    add_edge(points, fbl[0], fbl[1], fbl[2], ftl[0], ftl[1], ftl[2])
 
     #Back top left --> Back top right
-    add_edge(matrix, btl[0], btl[1], btl[2], btr[0], btr[1], btr[2])
+    add_edge(points, btl[0], btl[1], btl[2], btr[0], btr[1], btr[2])
     #Back top right --> Back bottom right
-    add_edge(matrix, btr[0], btr[1], btr[2], bbr[0], bbr[1], bbr[2])
+    add_edge(points, btr[0], btr[1], btr[2], bbr[0], bbr[1], bbr[2])
     #Back bottom right --> Back bottom left
-    add_edge(matrix, bbr[0], bbr[1], bbr[2], bbl[0], bbl[1], bbl[2])
+    add_edge(points, bbr[0], bbr[1], bbr[2], bbl[0], bbl[1], bbl[2])
     #Back botton left --> Back top left
+    add_edge(points, bbl[0], bbl[1], bbl[2], btl[0], btl[1], btl[2])
 
     #Front top left --> Back top left
+    add_edge(points, ftl[0], ftl[1], ftl[2], btl[0], btl[1], btl[2])
     #Front top right --> Back top right
+    add_edge(points, ftr[0], ftr[1], ftr[2], btr[0], btr[1], btr[2])
     #Front bottom left --> Back bottom left
+    add_edge(points, fbl[0], fbl[1], fbl[2], bbl[0], bbl[1], bbl[2])
     #Front bottom right --> Back bottom right
+    add_edge(points, fbr[0], fbr[1], fbr[2], bbr[0], bbr[1], bbr[2])
 
 
 
@@ -47,8 +53,19 @@ def add_box( points, x, y, z, width, height, depth ):
   # Returns a matrix of those points
   # ====================
 def generate_sphere( points, cx, cy, cz, r, step ):
-    for phi in range(0, Math.pi * 2, step):
-        for theta in range(0, Math.pi)
+    res = []
+    phi = 0
+    theta = 0
+    for phi in range(0, math.pi * 2, step):
+        for theta in range(0, math.pi, step):
+            x = r * math.cos(theta) + cx
+            y = r * math.sin(theta) * math.cos(phi) + cy
+            z = r * math.sin(theta) * math.sin(phi) + cz
+            res.append([x,y,z])
+    return res
+
+
+
 
   # ====================
   # adds all the points for a sphere with center
@@ -57,7 +74,8 @@ def generate_sphere( points, cx, cy, cz, r, step ):
   # necessary points
   # ====================
 def add_sphere( points, cx, cy, cz, r, step ):
-    pass
+    for pts in generate_sphere(points, cx, cy, cz, r, step):
+        add_point(points, pts[0], pts[1], pts[2])
 
 
   # ====================
