@@ -74,7 +74,7 @@ def generate_sphere( points, cx, cy, cz, r, step ):
   # ====================
 def add_sphere( points, cx, cy, cz, r, step ):
     for pts in generate_sphere(points, cx, cy, cz, r, step):
-        add_point(points, pts[0], pts[1], pts[2])
+        add_edge(points, pts[0], pts[1], pts[2], pts[0]+1, pts[1]+1, pts[2]+1)
 
   # ====================
   # Generates all the points along add_edge(matrix, x, y, z, x+width, y, z)the surface
@@ -104,7 +104,7 @@ def generate_torus( points, cx, cy, cz, r0, r1, step ):
   # ====================
 def add_torus( points, cx, cy, cz, r0, r1, step ):
     for pts in generate_torus(points, cx, cy, cz, r0, r1, step):
-        add_point(points, pts[0], pts[1], pts[2])
+        add_edge(points, pts[0], pts[1], pts[2], pts[0]+1, pts[1]+1, pts[2]+1)
 
 
 
