@@ -87,7 +87,7 @@ def generate_torus( points, cx, cy, cz, r0, r1, step ):
     phi = 0
     while phi < math.pi * 2:
         theta = 0
-        while theta < math.pi:
+        while theta < math.pi * 2:
             x = r0 * math.cos(theta) * math.cos(phi) + r1 * math.cos(phi) + cx
             y = r0 * math.sin(theta) + cy
             z = -r0 * math.cos(theta) * math.sin(phi) - r1 * math.sin(phi)
